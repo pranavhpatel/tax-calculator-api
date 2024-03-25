@@ -25,18 +25,4 @@ public class TaxCalculator {
             throw e;
         }
     }
-
-
-//     local testing main
-    public static void main(String[] args) {
-        try {
-            double income = 1234567; // Example income
-            int year = 2022; // Example year
-            Map<String, String> taxes = calculateTaxes(income, year);
-            System.out.println("Taxes:\n" + taxes);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 }
