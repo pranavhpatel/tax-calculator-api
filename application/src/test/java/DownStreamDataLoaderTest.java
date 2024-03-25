@@ -18,7 +18,7 @@ public class DownStreamDataLoaderTest {
         when(connection.getResponseCode()).thenReturn(HttpURLConnection.HTTP_OK);
 
         // read from resources the sample test
-        InputStream inputStream = getClass().getResourceAsStream("/sample_response.json");
+        InputStream inputStream = getClass().getResourceAsStream("/sampleResponse.json");
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 
         // get that data when called
