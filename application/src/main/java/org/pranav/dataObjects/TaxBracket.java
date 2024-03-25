@@ -6,17 +6,17 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 // annotation used as measure to ignore unknowns during JSON parsing making it more robust and flexible
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TaxBracket {
-    private int min;
+    private double min;
     private Integer max; // Integer max and not int to handle larger values and null max value cases
     private double rate;
 
     // Getters and Setters
     // Ideally they can be created using lombok and don't need to be typed out
-    public int getMin(){
+    public double getMin(){
         return min;
     }
 
-    public void setMin(int min){
+    public void setMin(double min){
         this.min =min;
     }
 

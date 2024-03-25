@@ -22,24 +22,20 @@ public class TaxCalculatorImpl {
 
         // calculation per bracket in loop
         for (TaxBracket currentBracket : taxBrackets){
-            int min = currentBracket.getMin();
-            Integer max = currentBracket.getMax();
+            double min = currentBracket.getMin();
+            double max = currentBracket.getMax() != null? currentBracket.getMax() : Double.MAX_VALUE;
             double rate = currentBracket.getRate();
+            double taxThisBracket = 0;
 
             // calculate income which will be taxed for current bracket
-            // get income spread using max - min, but if max is null it means no more cap (last bracket) so use infinity as upper bound
-            double incomeToTax = Math.min(max != null ? max - min : Double.POSITIVE_INFINITY, remainingIncome - min);
-//          System.out.println("incomeSpread: " + incomeSpread + ", incomeRemaining" + remainingIncome);
-
-
-            // calculate income tax for this bracket using incomeToTax
-            double taxesThisBracket = incomeToTax * rate;
-            taxesPerBracket.put("\nBracket: " + min + "-" + (max != null? max : "Max Bracket"), String.format("%.2f",taxesThisBracket));
-            totalTaxes += taxesThisBracket;
-
-            remainingIncome -= incomeToTax;
-            // end loop if all income is taxed
-            if (remainingIncome < 1) {
+            double taxableAmount = Math.min(max - min , remainingIncome);
+            if (taxableAmount > 0) {
+                taxThisBracket = taxableAmount * rate;
+                totalTaxes += taxThisBracket;
+                remainingIncome -= taxableAmount;
+                taxesPerBracket.put("\nBracket: " + min + "-" + max, String.format("%.2f",taxThisBracket));
+            }
+            if (remainingIncome < 1){
                 break;
             }
         }
