@@ -54,6 +54,7 @@ public class DownStreamDataLoader {
             connection.disconnect();
         } catch (Exception e){
             System.out.println("caught error while loading tax bracket information: " + e.getMessage());
+            throw e;
         }
         return response;
     }

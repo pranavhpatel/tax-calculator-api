@@ -22,8 +22,8 @@ public class TaxCalculator {
             return calculateTaxesImpl(income, taxBracketResponse);
         } catch (Exception e){
             System.out.println("caught error while calculating taxes: " + e.getMessage());
+            throw e;
         }
-        return null;
     }
 
 

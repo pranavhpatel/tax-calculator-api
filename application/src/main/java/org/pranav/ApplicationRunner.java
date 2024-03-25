@@ -23,6 +23,10 @@ public class ApplicationRunner {
                 });
 
         // Define POST endpoint for /calculate-taxes
-        post("/calculate-taxes", "application/json", taxCalculationRequestHandler);
+        try {
+            post("/calculate-taxes", "application/json", taxCalculationRequestHandler);
+        } catch (Exception e) {
+            halt(500, "Pranavs free tax calculator is not working atm please try again!");
+        }
     }
 }

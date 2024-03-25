@@ -18,7 +18,6 @@ public class TaxCalculatorImpl {
         Map<String, String> taxesPerBracket = new HashMap<>();
         double remainingIncome = income; // will be dynamic as income by brackets is calculated and moved to next
         double totalTaxes = 0;
-        double previousIncomeToTax = 0;
 
 
         // calculation per bracket in loop
@@ -26,27 +25,19 @@ public class TaxCalculatorImpl {
             int min = currentBracket.getMin();
             Integer max = currentBracket.getMax();
             double rate = currentBracket.getRate();
-            double incomeSpread = 0;
 
             // calculate income which will be taxed for current bracket
             // get income spread using max - min, but if max is null it means no more cap (last bracket) so use infinity as upper bound
-//                    double incomeToTax = Math.min(max != null ? max - min : Double.POSITIVE_INFINITY, remainingIncome - previousIncomeToTax);
-//                    previousIncomeToTax = incomeToTax;
-            if (max != null){
-                incomeSpread = max - min;
-                remainingIncome -= incomeSpread;
-            } else{
-                incomeSpread = remainingIncome;
-            }
-//                    System.out.println("incomeSpread: " + incomeSpread + ", incomeRemaining" + remainingIncome);
+            double incomeToTax = Math.min(max != null ? max - min : Double.POSITIVE_INFINITY, remainingIncome - min);
+//          System.out.println("incomeSpread: " + incomeSpread + ", incomeRemaining" + remainingIncome);
 
 
             // calculate income tax for this bracket using incomeToTax
-            double taxesThisBracket = incomeSpread * rate;
-            taxesPerBracket.put("\nBracket: " + min + "-" + (max != null? max : "Max"), String.format("%.2f",taxesThisBracket));
+            double taxesThisBracket = incomeToTax * rate;
+            taxesPerBracket.put("\nBracket: " + min + "-" + (max != null? max : "Max Bracket"), String.format("%.2f",taxesThisBracket));
             totalTaxes += taxesThisBracket;
 
-
+            remainingIncome -= incomeToTax;
             // end loop if all income is taxed
             if (remainingIncome < 1) {
                 break;
