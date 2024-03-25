@@ -9,6 +9,8 @@ import spark.Route;
 
 import java.util.Map;
 
+import static spark.Spark.halt;
+
 
 public class TaxCalculationRequestHandler {
 
@@ -26,6 +28,7 @@ public class TaxCalculationRequestHandler {
             return taxes;
         } catch (Exception e) {
             res.status(500);
+            halt(500, "Whoops! Pranavs free tax calculator is not working atm, please try again!");
             throw e;
         }
     };
